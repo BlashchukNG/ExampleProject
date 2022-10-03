@@ -2,7 +2,7 @@
 
 namespace Code.Infrastructure
 {
-    public sealed class GameBootstrapper : 
+    public sealed class GameBootstrapper :
         MonoBehaviour
     {
         private Game _game;
@@ -10,7 +10,8 @@ namespace Code.Infrastructure
         private void Awake()
         {
             _game = new Game();
-            
+            _game.stateMachine.Enter<BootstrapState>();
+
             DontDestroyOnLoad(this);
         }
     }
