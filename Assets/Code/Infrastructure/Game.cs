@@ -8,9 +8,9 @@ namespace Code.Infrastructure
 
         public readonly GameStateMachine stateMachine;
 
-        public Game()
+        public Game(ICoroutineRunner coroutineRunner)
         {
-            stateMachine = new GameStateMachine();
+            stateMachine = new GameStateMachine(new SceneLoader(coroutineRunner));
         }
     }
 }
