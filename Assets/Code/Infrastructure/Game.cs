@@ -1,4 +1,5 @@
-﻿using Code.Services.Input;
+﻿using Code.Logic;
+using Code.Services.Input;
 
 namespace Code.Infrastructure
 {
@@ -6,14 +7,11 @@ namespace Code.Infrastructure
     {
         public static IInputService InputService;
 
-        public Game()
-        {
-            RegisterInputService();
-        }
+        public readonly GameStateMachine stateMachine;
 
-        private void RegisterInputService()
+        public Game(ICoroutineRunner coroutineRunner, LoadingCurtain loadingCurtain)
         {
-            InputService = new InputService();
+            stateMachine = new GameStateMachine(new SceneLoader(coroutineRunner), loadingCurtain);
         }
     }
 }
