@@ -1,12 +1,12 @@
 ﻿using Code.Services.Input;
 
-namespace Code.Infrastructure
+namespace Code.Infrastructure.States
 {
     public sealed class BootstrapState :
         IState
     {
         private const string Initial = "Initial";
-        
+
         private readonly GameStateMachine _gameStateMachine;
         private readonly SceneLoader _sceneLoader;
 
@@ -24,7 +24,7 @@ namespace Code.Infrastructure
 
         private void EnterLoadScene()
         {
-            
+            _gameStateMachine.Enter<LoadLevelState>();
         }
 
         public void Exit()

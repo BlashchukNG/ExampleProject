@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Code.Infrastructure.States;
 
 namespace Code.Infrastructure
 {
@@ -13,10 +14,12 @@ namespace Code.Infrastructure
             _states = new Dictionary<Type, IState>
             {
                 [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader),
+                [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader),
             };
         }
 
-        public void Enter<TState>() where TState : IState
+        public void Enter<TState>()
+            where TState : IState
         {
             _activeState?.Exit();
             var state = _states[typeof(TState)];
