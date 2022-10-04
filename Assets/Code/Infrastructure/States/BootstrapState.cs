@@ -22,10 +22,7 @@ namespace Code.Infrastructure.States
             _sceneLoader.Load(Initial, onLoaded: EnterLoadScene);
         }
 
-        private void EnterLoadScene()
-        {
-            _gameStateMachine.Enter<LoadLevelState>();
-        }
+        private void EnterLoadScene() => _gameStateMachine.Enter<LoadLevelState, string>("Main");
 
         public void Exit()
         {

@@ -1,4 +1,5 @@
-﻿using Code.Services.Input;
+﻿using Code.Logic;
+using Code.Services.Input;
 
 namespace Code.Infrastructure
 {
@@ -8,9 +9,9 @@ namespace Code.Infrastructure
 
         public readonly GameStateMachine stateMachine;
 
-        public Game(ICoroutineRunner coroutineRunner)
+        public Game(ICoroutineRunner coroutineRunner, LoadingCurtain loadingCurtain)
         {
-            stateMachine = new GameStateMachine(new SceneLoader(coroutineRunner));
+            stateMachine = new GameStateMachine(new SceneLoader(coroutineRunner), loadingCurtain);
         }
     }
 }
