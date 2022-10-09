@@ -1,4 +1,7 @@
-﻿using Code.Services.Input;
+﻿using Code.Infrastructure.AssetManagement;
+using Code.Infrastructure.Factory;
+using Code.Infrastructure.Services;
+using Code.Services.Input;
 
 namespace Code.Infrastructure.States
 {
@@ -30,6 +33,8 @@ namespace Code.Infrastructure.States
 
         private void RegisterServices()
         {
+            ServiceLocator.Container.RegisterSingle<IGameFactory>(new GameFactory(ServiceLocator.Container.Single<IAssetProvider>()));
+            
             RegisterInputService();
         }
 
