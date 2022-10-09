@@ -6,12 +6,10 @@ namespace Code.Infrastructure.States
     public sealed class LoadLevelState :
         IPayloadedState<string>
     {
-        private const string HERO_PATH = "Hero/Hero";
-        private const string HUD_PATH = "HUD/HUD";
-
         private readonly GameStateMachine _gameStateMachine;
         private readonly SceneLoader _sceneLoader;
         private readonly LoadingCurtain _loadingCurtain;
+        private readonly IGameFactory _gameFactory = new GameFactory();
 
         public LoadLevelState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, LoadingCurtain loadingCurtain)
         {
@@ -33,13 +31,10 @@ namespace Code.Infrastructure.States
 
         private void OnLoaded()
         {
-            var hero = Instantiate(HERO_PATH);
-            var hud = Instantiate(HUD_PATH);
+            var hero = _gameFactory.CreateHero(at: Vector3.zero);
+            var hud = _gameFactory.CreateHUD();
 
             _gameStateMachine.Enter<GameLoopState>();
         }
-
-        private GameObject Instantiate(string path) => Object.Instantiate(Resources.Load<GameObject>(path));
-        private GameObject Instantiate(string path, Vector3 at) => Object.Instantiate(Resources.Load<GameObject>(path), at, Quaternion.identity);
     }
 }
