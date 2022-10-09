@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Code.Infrastructure.States;
 using Code.Logic;
 
-namespace Code.Infrastructure
+namespace Code.Infrastructure.States
 {
     public sealed class GameStateMachine
     {

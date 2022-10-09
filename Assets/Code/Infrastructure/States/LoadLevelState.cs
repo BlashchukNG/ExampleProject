@@ -1,4 +1,6 @@
-﻿using Code.Logic;
+﻿using Code.Infrastructure.AssetManagement;
+using Code.Infrastructure.Factory;
+using Code.Logic;
 using UnityEngine;
 
 namespace Code.Infrastructure.States
@@ -9,13 +11,15 @@ namespace Code.Infrastructure.States
         private readonly GameStateMachine _gameStateMachine;
         private readonly SceneLoader _sceneLoader;
         private readonly LoadingCurtain _loadingCurtain;
-        private readonly IGameFactory _gameFactory = new GameFactory();
+        private readonly IGameFactory _gameFactory;
 
         public LoadLevelState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, LoadingCurtain loadingCurtain)
         {
             _gameStateMachine = gameStateMachine;
             _sceneLoader = sceneLoader;
             _loadingCurtain = loadingCurtain;
+
+            _gameFactory = new GameFactory(new AssetProvider());
         }
 
         public void Enter(string sceneName)
