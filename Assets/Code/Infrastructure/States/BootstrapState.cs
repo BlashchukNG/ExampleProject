@@ -12,35 +12,33 @@ namespace Code.Infrastructure.States
 
         private readonly GameStateMachine _gameStateMachine;
         private readonly SceneLoader _sceneLoader;
+        private readonly ServiceLocator _services;
 
-        public BootstrapState(GameStateMachine gameStateMachine, SceneLoader sceneLoader)
+        public BootstrapState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, ServiceLocator services)
         {
             _gameStateMachine = gameStateMachine;
             _sceneLoader = sceneLoader;
+            _services = services;
+            
+            RegisterServices();
         }
 
         public void Enter()
         {
-            RegisterServices();
             _sceneLoader.Load(Initial, onLoaded: EnterLoadScene);
         }
-
-        private void EnterLoadScene() => _gameStateMachine.Enter<LoadLevelState, string>("Main");
 
         public void Exit()
         {
         }
 
+        private void EnterLoadScene() => _gameStateMachine.Enter<LoadLevelState, string>("Main");
+
         private void RegisterServices()
         {
-            ServiceLocator.Container.RegisterSingle<IGameFactory>(new GameFactory(ServiceLocator.Container.Single<IAssetProvider>()));
-            
-            RegisterInputService();
-        }
-
-        private void RegisterInputService()
-        {
-            Game.InputService = new InputService();
+            _services.RegisterSingle<IInputService>(new InputService());
+            _services.RegisterSingle<IAssetProvider>(new AssetProvider());
+            _services.RegisterSingle<IGameFactory>(new GameFactory(_services.Single<IAssetProvider>()));
         }
     }
 }
