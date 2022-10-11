@@ -9,12 +9,12 @@ namespace Code.Infrastructure
         ICoroutineRunner
     {
         [SerializeField] private LoadingCurtain _curtain;
-        
+
         private Game _game;
 
         private void Awake()
         {
-            _game = new Game(coroutineRunner: this, _curtain);
+            _game = new Game(coroutineRunner: this, Instantiate(_curtain));
             _game.stateMachine.Enter<BootstrapState>();
 
             DontDestroyOnLoad(this);
