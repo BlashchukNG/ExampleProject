@@ -1,7 +1,6 @@
 ﻿using Code.Infrastructure.Services;
 using Code.Infrastructure.States;
 using Code.Logic;
-using Code.Services.Input;
 
 namespace Code.Infrastructure
 {

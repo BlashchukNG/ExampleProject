@@ -1,7 +1,6 @@
-﻿using Code.Infrastructure.Services;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Code.Services.Input
+namespace Code.Infrastructure.Services.Input
 {
     public interface IInputService :
         IService

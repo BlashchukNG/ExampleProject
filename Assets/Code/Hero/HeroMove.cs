@@ -1,6 +1,6 @@
 ﻿using Code.Infrastructure;
 using Code.Infrastructure.Services;
-using Code.Services.Input;
+using Code.Infrastructure.Services.Input;
 using UnityEngine;
 
 namespace Code.Hero
