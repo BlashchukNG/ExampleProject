@@ -1,8 +1,10 @@
 ﻿using Code.Data;
+using Code.Extensions;
 using Code.Infrastructure.Services;
 using Code.Infrastructure.Services.Input;
 using Code.Infrastructure.Services.PersistentProgress;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Code.Hero
 {
@@ -48,12 +50,25 @@ namespace Code.Hero
 
         public void ReadProgress(PlayerProgress progress)
         {
-            transform.position = progress.worldData.playerPosition.AsVector3();
+            if (CurrentLevel() == progress.worldData.playerPositionOnLevel.level)
+            {
+                var savedPosition = progress.worldData.playerPositionOnLevel.playerPosition;
+                if (savedPosition != null) Warp(to: savedPosition);
+            }
         }
 
         public void WriteProgress(PlayerProgress progress)
         {
-            progress.worldData.playerPosition = transform.position.AsVector3Data();
+            progress.worldData.playerPositionOnLevel = new PositionOnLevel(CurrentLevel(), transform.position.AsVector3Data());
         }
+
+        private void Warp(Vector3Data to)
+        {
+            _characterController.Disable();
+            transform.position = to.AsVector3();
+            _characterController.Enable();
+        }
+
+        private string CurrentLevel() => SceneManager.GetActiveScene().name;
     }
 }
