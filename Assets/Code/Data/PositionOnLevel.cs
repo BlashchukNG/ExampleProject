@@ -13,5 +13,10 @@ namespace Code.Data
             this.level = level;
             this.playerPosition = playerPosition;
         }
+
+        public PositionOnLevel(string initialLevel)
+        {
+            level = initialLevel;
+        }
     }
 }

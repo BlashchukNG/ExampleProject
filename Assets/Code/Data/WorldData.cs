@@ -6,5 +6,10 @@ namespace Code.Data
     public sealed class WorldData
     {
         public PositionOnLevel playerPositionOnLevel;
+
+        public WorldData(string initialLevel)
+        {
+            playerPositionOnLevel = new PositionOnLevel(initialLevel);
+        }
     }
 }
