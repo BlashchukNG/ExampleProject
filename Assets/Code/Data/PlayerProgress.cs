@@ -6,5 +6,9 @@ namespace Code.Data
     public sealed class PlayerProgress
     {
         public WorldData worldData;
+
+        public PlayerProgress(string initialLevel)
+        {
+        }
     }
 }
